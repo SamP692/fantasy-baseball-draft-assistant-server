@@ -10,6 +10,7 @@
     team: VARCHAR
     age: INTEGER
     season: INTEGER
+    yahoo_positions: VARCHAR // semicolon-delimited-list
     current_fantasy_team: VARCHAR
     confirmed_keeper: BOOLEAN
     expected_keeper: BOOLEAN
@@ -33,6 +34,7 @@
     team: VARCHAR
     age: INTEGER
     season: INTEGER
+    yahoo_positions: VARCHAR // semicolon-delimited-list
     current_fantasy_team: VARCHAR
     confirmed_keeper: BOOLEAN
     expected_keeper: BOOLEAN
@@ -54,8 +56,3 @@
     brk_spin: INTEGER
     os_rate: FLOAT
     os_spin: INTEGER
-
-### Positions
-    id: UUID
-    player_id: ForeignKey
-    position: VARCHAR
