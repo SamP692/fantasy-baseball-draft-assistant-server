@@ -1,2 +1,4 @@
 /database/db-instances/*
 !/database/db-instances/.gitkeep
+
+/sandbox.ts
