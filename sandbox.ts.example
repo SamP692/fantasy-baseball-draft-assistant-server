@@ -1,0 +1,6 @@
+// Remove the `.example` extension from this file to initialize your own local sandbox file
+
+/* Example */
+import db from ":db"
+
+db.execute("SELECT * FROM batters")
