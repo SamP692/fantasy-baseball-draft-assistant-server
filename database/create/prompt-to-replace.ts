@@ -5,11 +5,14 @@ function promptToReplace(dbDir: string) {
 
         if (fileAlreadyExists) {
             const shouldReplace = prompt("This database has already been created, would you like to replace it? (y/N)")
-        
+
+            
             if (shouldReplace?.toLowerCase() !== "y") {
                 console.log("Leaving existing database in place and terminating database creation.")
                 
                 Deno.exit()
+            } else {
+                Deno.removeSync(dbDir)
             }
         }
     } catch (e) {

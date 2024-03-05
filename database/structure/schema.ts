@@ -1,0 +1,60 @@
+const schema = `
+    CREATE TABLE IF NOT EXISTS batters (
+        id VARCHAR(50) PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        savant_id INTEGER NOT NULL,
+        yahoo_id INTEGER,
+        team VARCHAR(50),
+        age INTEGER NOT NULL,
+        season INTEGER NOT NULL,
+        yahoo_positions VARCHAR(50) NOT NULL,
+        current_fantasy_team VARCHAR(50),
+        confirmed_keeper BOOLEAN,
+        expected_keeper BOOLEAN,
+        expected_fa BOOLEAN,
+        keeper_round INTEGER,
+        pa INTEGER,
+        xba FLOAT,
+        xwoba FLOAT,
+        xiso FLOAT,
+        avg_exit_vel FLOAT,
+        barrel_rate FLOAT,
+        chase_rate FLOAT,
+        whiff_rate FLOAT,
+        speed FLOAT
+    );
+
+    CREATE TABLE IF NOT EXISTS pitchers (
+        id VARCHAR(50) PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        savant_id INTEGER NOT NULL,
+        yahoo_id INTEGER,
+        team VARCHAR(50),
+        age INTEGER NOT NULL,
+        season INTEGER NOT NULL,
+        yahoo_positions VARCHAR(50) NOT NULL,
+        current_fantasy_team VARCHAR(50),
+        confirmed_keeper BOOLEAN,
+        expected_keeper BOOLEAN,
+        expected_fa BOOLEAN,
+        keeper_round INTEGER,
+        pa INTEGER,
+        gs INTEGER,
+        xba FLOAT,
+        xwoba FLOAT,
+        xiso FLOAT,
+        avg_exit_vel FLOAT,
+        barrel_rate FLOAT,
+        zone_rate FLOAT,
+        chase_rate FLOAT,
+        whiff_rate FLOAT,
+        fb_rate FLOAT,
+        fb_spin INTEGER,
+        brk_rate FLOAT,
+        brk_spin INTEGER,
+        os_rate FLOAT,
+        os_spin INTEGER
+    );
+`
+
+export default schema
