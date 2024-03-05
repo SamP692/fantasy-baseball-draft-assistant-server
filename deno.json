@@ -1,0 +1,17 @@
+{
+    "imports": {
+        "oak": "https://deno.land/x/oak@v14.1.1/mod.ts",
+        "sqlite": "https://deno.land/x/sqlite3@0.11.0/mod.ts",
+
+        ":config": "./config.ts"
+    },
+    "tasks": {
+        "serve": "deno run --allow-net --allow-read --allow-write server.ts",
+        "create-db": "deno run --allow-read --allow-write database/create.ts"
+    },
+    "fmt": {
+        "indentWidth": 4,
+        "semiColons": false,
+        "singleQuote": false
+    }
+}
