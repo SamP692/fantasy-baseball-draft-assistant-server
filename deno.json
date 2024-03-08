@@ -5,6 +5,7 @@
 
         ":config": "./config.ts",
         ":db": "./database/db.ts",
+        ":domain/": "./domain/",
         
         ":types/": "./type-definitions/"
     },

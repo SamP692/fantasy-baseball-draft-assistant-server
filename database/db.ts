@@ -14,7 +14,7 @@ interface DBService {
     getConnection: () => IDatabase
     createTransaction: () => Database['transaction']
     execute: (query: string, params?: QueryParams) => number
-    query: <ResponseType>(query: string, params?: QueryParams) => ResponseType
+    query: <ResponseType>(query: string, params?: QueryParams) => ResponseType[]
 }
 
 /* Database Service */
@@ -51,7 +51,7 @@ const db: DBService = {
         const statement = connection.prepare(query)
         const result = statement.all(params)
         
-        return result as ResponseType
+        return result as ResponseType[]
     }
 }
 
