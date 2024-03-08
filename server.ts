@@ -3,6 +3,7 @@ import { Application, Router } from "oak"
 
 /* Middleware */
 import prepareData from "./server/middleware/prepare-data.ts"
+import cors from "./server/middleware/cors.ts"
 
 /* Controllers */
 import getSampleBatterController from "./server/controllers/batter/sample.ts"
@@ -13,7 +14,9 @@ const webServer = new Application()
 const router = new Router()
 
 router
-    .get("/sample-batter", getSampleBatterController)
+    .get("/batters/sample", getSampleBatterController)
+
+webServer.use(cors)
 
 webServer.use(router.routes())
 webServer.use(router.allowedMethods())
