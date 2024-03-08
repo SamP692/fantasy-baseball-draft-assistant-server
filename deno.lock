@@ -10,7 +10,8 @@
       "jsr:@std/fs@0.214": "jsr:@std/fs@0.214.0",
       "jsr:@std/path@0.214": "jsr:@std/path@0.214.0",
       "jsr:@std/path@0.217": "jsr:@std/path@0.217.0",
-      "jsr:@std/path@^0.214.0": "jsr:@std/path@0.214.0"
+      "jsr:@std/path@^0.214.0": "jsr:@std/path@0.214.0",
+      "npm:mathjs@12.4.0": "npm:mathjs@12.4.0"
     },
     "jsr": {
       "@denosaurs/plug@1.0.5": {
@@ -52,6 +53,64 @@
         "dependencies": [
           "jsr:@std/assert@^0.217.0"
         ]
+      }
+    },
+    "npm": {
+      "@babel/runtime@7.24.0": {
+        "integrity": "sha512-Chk32uHMg6TnQdvw2e9IlqPpFX/6NLuK0Ys2PqLb7/gL5uFn9mXvK715FGLlOLQrcO4qIkNHkvPGktzzXexsFw==",
+        "dependencies": {
+          "regenerator-runtime": "regenerator-runtime@0.14.1"
+        }
+      },
+      "complex.js@2.1.1": {
+        "integrity": "sha512-8njCHOTtFFLtegk6zQo0kkVX1rngygb/KQI6z1qZxlFI3scluC+LVTCFbrkWjBv4vvLlbQ9t88IPMC6k95VTTg==",
+        "dependencies": {}
+      },
+      "decimal.js@10.4.3": {
+        "integrity": "sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==",
+        "dependencies": {}
+      },
+      "escape-latex@1.2.0": {
+        "integrity": "sha512-nV5aVWW1K0wEiUIEdZ4erkGGH8mDxGyxSeqPzRNtWP7ataw+/olFObw7hujFWlVjNsaDFw5VZ5NzVSIqRgfTiw==",
+        "dependencies": {}
+      },
+      "fraction.js@4.3.4": {
+        "integrity": "sha512-pwiTgt0Q7t+GHZA4yaLjObx4vXmmdcS0iSJ19o8d/goUGgItX9UZWKWNnLHehxviD8wU2IWRsnR8cD5+yOJP2Q==",
+        "dependencies": {}
+      },
+      "javascript-natural-sort@0.7.1": {
+        "integrity": "sha512-nO6jcEfZWQXDhOiBtG2KvKyEptz7RVbpGP4vTD2hLBdmNQSsCiicO2Ioinv6UI4y9ukqnBpy+XZ9H6uLNgJTlw==",
+        "dependencies": {}
+      },
+      "mathjs@12.4.0": {
+        "integrity": "sha512-4Moy0RNjwMSajEkGGxNUyMMC/CZAcl87WBopvNsJWB4E4EFebpTedr+0/rhqmnOSTH3Wu/3WfiWiw6mqiaHxVw==",
+        "dependencies": {
+          "@babel/runtime": "@babel/runtime@7.24.0",
+          "complex.js": "complex.js@2.1.1",
+          "decimal.js": "decimal.js@10.4.3",
+          "escape-latex": "escape-latex@1.2.0",
+          "fraction.js": "fraction.js@4.3.4",
+          "javascript-natural-sort": "javascript-natural-sort@0.7.1",
+          "seedrandom": "seedrandom@3.0.5",
+          "tiny-emitter": "tiny-emitter@2.1.0",
+          "typed-function": "typed-function@4.1.1"
+        }
+      },
+      "regenerator-runtime@0.14.1": {
+        "integrity": "sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==",
+        "dependencies": {}
+      },
+      "seedrandom@3.0.5": {
+        "integrity": "sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==",
+        "dependencies": {}
+      },
+      "tiny-emitter@2.1.0": {
+        "integrity": "sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==",
+        "dependencies": {}
+      },
+      "typed-function@4.1.1": {
+        "integrity": "sha512-Pq1DVubcvibmm8bYcMowjVnnMwPVMeh0DIdA8ad8NZY2sJgapANJmiigSUwlt+EgXxpfIv8MWrQXTIzkfYZLYQ==",
+        "dependencies": {}
       }
     }
   },
@@ -214,5 +273,10 @@
     "https://deno.land/x/sqlite3@0.11.0/src/ffi.ts": "6648dc15f10312df9d2fc8e6e2be230d82a552f28b8f77d03f32bbfba9198888",
     "https://deno.land/x/sqlite3@0.11.0/src/statement.ts": "6b06ed408f72b8cce093823fde1acfbcda7c1ba3fe3dcc5044f5651179f428bb",
     "https://deno.land/x/sqlite3@0.11.0/src/util.ts": "c6604183d2ec5fb17fa0a018572ed5f2317b319dbd7bf48d88a5d06ff25b2cc3"
+  },
+  "workspace": {
+    "dependencies": [
+      "npm:mathjs@12.4.0"
+    ]
   }
 }

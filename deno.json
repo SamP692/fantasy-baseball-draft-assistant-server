@@ -2,6 +2,7 @@
     "imports": {
         "oak": "https://deno.land/x/oak@v14.1.1/mod.ts",
         "sqlite": "https://deno.land/x/sqlite3@0.11.0/mod.ts",
+        "math": "npm:mathjs@12.4.0",
 
         ":config": "./config.ts",
         ":db": "./database/db.ts",
@@ -12,6 +13,8 @@
     "tasks": {
         "serve": "deno run -A --watch --unstable-ffi server.ts",
         "create-db": "deno run -A --unstable-ffi database/create.ts",
+
+        "script-publish-aggregates": "deno run -A --unstable-ffi scripts/publish-aggregate-data.ts",
 
         "sandbox": "deno run -A --watch --unstable-ffi sandbox.ts"
     },
