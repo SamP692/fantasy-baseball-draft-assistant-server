@@ -10,10 +10,10 @@
         ":types/": "./type-definitions/"
     },
     "tasks": {
-        "serve": "deno run -A --unstable-ffi server.ts",
+        "serve": "deno run -A --watch --unstable-ffi server.ts",
         "create-db": "deno run -A --unstable-ffi database/create.ts",
 
-        "sandbox": "deno run -A --unstable-ffi sandbox.ts"
+        "sandbox": "deno run -A --watch --unstable-ffi sandbox.ts"
     },
     "fmt": {
         "indentWidth": 4,
