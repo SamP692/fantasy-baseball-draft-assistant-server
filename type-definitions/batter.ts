@@ -74,13 +74,21 @@ export interface DbBatter extends PlainObject {
     keeper_round: number | null
     pa: number
     xba: number
+    xba_dev: number
     xwoba: number
+    xwoba_dev: number
     xiso: number
+    xiso_dev: number
     avg_exit_vel: number
+    avg_exit_vel_dev: number
     barrel_rate: number
+    barrel_rate_dev: number
     chase_rate: number
+    chase_rate_dev: number
     whiff_rate: number
+    whiff_rate_dev: number
     speed: number
+    speed_dev: number
 }
 
 /* Batter */
@@ -100,11 +108,19 @@ export interface Batter {
     keeperRound: number | null | undefined
     pa: number
     xba: number
+    xbaDev: number
     xwoba: number
+    xwobaDev: number
     xiso: number
+    xisoDev: number
     avgExitVel: number
+    avgExitVelDev: number
     barrelRate: number
+    barrelRateDev: number
     chaseRate: number
+    chaseRateDev: number
     whiffRate: number
+    whiffRateDev: number
     speed: number
+    speedDev: number
 }

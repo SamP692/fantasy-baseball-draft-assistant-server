@@ -88,19 +88,33 @@ export interface DbPitcher extends PlainObject {
     pa: number
     gs: number
     xba: number
+    xba_dev: number
     xwoba: number
+    xwoba_dev: number
     xiso: number
+    xiso_dev: number
     avg_exit_vel: number
+    avg_exit_vel_dev: number
     barrel_rate: number
+    barrel_rate_dev: number
     zone_rate: number
+    zone_rate_dev: number
     chase_rate: number
+    chase_rate_dev: number
     whiff_rate: number
+    whiff_rate_dev: number
     fb_rate: number | null
+    fb_rate_dev: number | null
     fb_spin: number | null
+    fb_spin_dev: number | null
     brk_rate: number | null
+    brk_rate_dev: number | null
     brk_spin: number | null
+    brk_spin_dev: number | null
     os_rate: number | null
+    os_rate_dev: number | null
     os_spin: number | null
+    os_spin_dev: number | null
 }
 
 /* Pitcher */
@@ -121,17 +135,31 @@ export interface Pitcher {
     pa: number
     gs: number
     xba: number
+    xba_dev: number
     xwoba: number
+    xwoba_dev: number
     xiso: number
+    xisoDev: number
     avgExitVel: number
+    avgExitVelDev: number
     barrelRate: number
+    barrelRateDev: number
     zoneRate: number
+    zoneRateDev: number
     chaseRate: number
+    chaseRateDev: number
     whiffRate: number
+    whiffRateDev: number
     fbRate: number | null
+    fbRateDev: number | null
     fbSpin: number | null
+    fbSpinDev: number | null
     brkRate: number | null
+    brkRateDev: number | null
     brkSpin: number | null
+    brkSpinDev: number | null
     osRate: number | null
+    osRateDev: number | null
     osSpin: number | null
+    osSpinDev: number | null
 }

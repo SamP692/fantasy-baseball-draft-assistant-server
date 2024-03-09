@@ -11,13 +11,45 @@ import {
     type DbPitcher
 } from ":types/pitcher.ts"
 
+/* Data Aggregations */
+import getDataAggregations from "./get-data-aggregations.ts"
+const pitchingAggregations = getDataAggregations("pitching")
+
 /* Behaviors */
+/* -- Is Expected Free Agent */
+function isExpectedFreeAgent(minimumKeeperRound: number | string): 0 | 1 {
+    const booleanValue = minimumKeeperRound === "FA" ? 1 : 0
+
+    return booleanValue
+}
+
 /* -- Load Pitcher Seed Data */
 function loadPitcherSeedData() {
     const picherJson = Deno.readTextFileSync(`${config.seedData}/pitchers.json`)
     const batterRecords = JSON.parse(picherJson)
 
     return batterRecords as { mergedRecords: RawPitcher[], unmatchedRecords: RawPitcherIncomplete[] }
+}
+
+/* -- Calculate Standard Deviations from the Mean */
+function calculateNullableStandardDeviations(value: number | null, key: string): number | null {
+    const noValue = value === null || value === undefined
+    if (noValue) return null
+    
+    return (calculateStandardDeviations(value, key))
+
+}
+
+function calculateStandardDeviations(value: number, key: string): number {
+    if (pitchingAggregations[key] === undefined) {
+        throw new Error(`No aggregation found for ${key}`)
+    }
+
+    const { mean, stdDev } = pitchingAggregations[key]
+
+    const deviationsFromTheMean = (value - mean) / stdDev
+
+    return deviationsFromTheMean
 }
 
 /* -- Flatten Pitcher Records */
@@ -34,7 +66,7 @@ function flattenPitcherRecord(pitcherRecord: RawPitcher): DbPitcher {
         current_fantasy_team: pitcherRecord.currentFantasyTeam,
         confirmed_keeper: 0,
         expected_keeper: 0,
-        expected_fa: 0,
+        expected_fa: isExpectedFreeAgent(pitcherRecord.minimumKeeperRound),
         keeper_round: pitcherRecord.minimumKeeperRound === "FA" ? null : pitcherRecord.minimumKeeperRound,
         pa: pitcherRecord.data.pa,
         gs: pitcherRecord.data.gs,
@@ -51,7 +83,21 @@ function flattenPitcherRecord(pitcherRecord: RawPitcher): DbPitcher {
         brk_rate: pitcherRecord.data.bbRate,
         brk_spin: pitcherRecord.data.bbSpin,
         os_rate: pitcherRecord.data.osRate,
-        os_spin: pitcherRecord.data.osSpin
+        os_spin: pitcherRecord.data.osSpin,
+        xba_dev: calculateStandardDeviations(pitcherRecord.data.xba, "xba"),
+        xwoba_dev: calculateStandardDeviations(pitcherRecord.data.xwoba, "xwoba"),
+        xiso_dev: calculateStandardDeviations(pitcherRecord.data.xiso, "xiso"),
+        avg_exit_vel_dev: calculateStandardDeviations(pitcherRecord.data.avgExitVel, "avg_exit_vel"),
+        barrel_rate_dev: calculateStandardDeviations(pitcherRecord.data.barrelRate, "barrel_rate"),
+        zone_rate_dev: calculateStandardDeviations(pitcherRecord.data.zoneRate, "zone_rate"),
+        chase_rate_dev: calculateStandardDeviations(pitcherRecord.data.chaseRate, "chase_rate"),
+        whiff_rate_dev: calculateStandardDeviations(pitcherRecord.data.whiffRate, "whiff_rate"),
+        fb_rate_dev: calculateNullableStandardDeviations(pitcherRecord.data.fbRate, "fb_rate"),
+        fb_spin_dev: calculateNullableStandardDeviations(pitcherRecord.data.fbSpin, "fb_spin"),
+        brk_rate_dev: calculateNullableStandardDeviations(pitcherRecord.data.bbRate, "brk_rate"),
+        brk_spin_dev: calculateNullableStandardDeviations(pitcherRecord.data.bbSpin, "brk_spin"),
+        os_rate_dev: calculateNullableStandardDeviations(pitcherRecord.data.osRate, "os_rate"),
+        os_spin_dev: calculateNullableStandardDeviations(pitcherRecord.data.osSpin, "os_spin")
     }
 
     return flattenedRecord
@@ -88,7 +134,21 @@ function flattenIncompletePitcherRecord(pitcherRecord: RawPitcherIncomplete): Db
         brk_rate: pitcherRecord.data.bbRate,
         brk_spin: pitcherRecord.data.bbSpin,
         os_rate: pitcherRecord.data.osRate,
-        os_spin: pitcherRecord.data.osSpin
+        os_spin: pitcherRecord.data.osSpin,
+        xba_dev: calculateStandardDeviations(pitcherRecord.data.xba, "xba"),
+        xwoba_dev: calculateStandardDeviations(pitcherRecord.data.xwoba, "xwoba"),
+        xiso_dev: calculateStandardDeviations(pitcherRecord.data.xiso, "xiso"),
+        avg_exit_vel_dev: calculateStandardDeviations(pitcherRecord.data.avgExitVel, "avg_exit_vel"),
+        barrel_rate_dev: calculateStandardDeviations(pitcherRecord.data.barrelRate, "barrel_rate"),
+        zone_rate_dev: calculateStandardDeviations(pitcherRecord.data.zoneRate, "zone_rate"),
+        chase_rate_dev: calculateStandardDeviations(pitcherRecord.data.chaseRate, "chase_rate"),
+        whiff_rate_dev: calculateStandardDeviations(pitcherRecord.data.whiffRate, "whiff_rate"),
+        fb_rate_dev: calculateNullableStandardDeviations(pitcherRecord.data.fbRate, "fb_rate"),
+        fb_spin_dev: calculateNullableStandardDeviations(pitcherRecord.data.fbSpin, "fb_spin"),
+        brk_rate_dev: calculateNullableStandardDeviations(pitcherRecord.data.bbRate, "brk_rate"),
+        brk_spin_dev: calculateNullableStandardDeviations(pitcherRecord.data.bbSpin, "brk_spin"),
+        os_rate_dev: calculateNullableStandardDeviations(pitcherRecord.data.osRate, "os_rate"),
+        os_spin_dev: calculateNullableStandardDeviations(pitcherRecord.data.osSpin, "os_spin")
     }
 
     return flattenedRecord
@@ -128,7 +188,21 @@ function seedDabase() {
             brk_rate,
             brk_spin,
             os_rate,
-            os_spin
+            os_spin,
+            xba_dev,
+            xwoba_dev,
+            xiso_dev,
+            avg_exit_vel_dev,
+            barrel_rate_dev,
+            zone_rate_dev,
+            chase_rate_dev,
+            whiff_rate_dev,
+            fb_rate_dev,
+            fb_spin_dev,
+            brk_rate_dev,
+            brk_spin_dev,
+            os_rate_dev,
+            os_spin_dev
         ) VALUES (
             :id,
             :name,
@@ -158,7 +232,21 @@ function seedDabase() {
             :brk_rate,
             :brk_spin,
             :os_rate,
-            :os_spin
+            :os_spin,
+            :xba_dev,
+            :xwoba_dev,
+            :xiso_dev,
+            :avg_exit_vel_dev,
+            :barrel_rate_dev,
+            :zone_rate_dev,
+            :chase_rate_dev,
+            :whiff_rate_dev,
+            :fb_rate_dev,
+            :fb_spin_dev,
+            :brk_rate_dev,
+            :brk_spin_dev,
+            :os_rate_dev,
+            :os_spin_dev
         )
     `)
 

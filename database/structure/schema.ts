@@ -15,13 +15,21 @@ const schema = `
         keeper_round INTEGER,
         pa INTEGER,
         xba FLOAT,
+        xba_dev FLOAT,
         xwoba FLOAT,
+        xwoba_dev FLOAT,
         xiso FLOAT,
+        xiso_dev FLOAT,
         avg_exit_vel FLOAT,
+        avg_exit_vel_dev FLOAT,
         barrel_rate FLOAT,
+        barrel_rate_dev FLOAT,
         chase_rate FLOAT,
+        chase_rate_dev FLOAT,
         whiff_rate FLOAT,
-        speed FLOAT
+        whiff_rate_dev FLOAT,
+        speed FLOAT,
+        speed_dev FLOAT
     );
 
     CREATE TABLE IF NOT EXISTS pitchers (
@@ -41,19 +49,33 @@ const schema = `
         pa INTEGER,
         gs INTEGER,
         xba FLOAT,
+        xba_dev FLOAT,
         xwoba FLOAT,
+        xwoba_dev FLOAT,
         xiso FLOAT,
+        xiso_dev FLOAT,
         avg_exit_vel FLOAT,
+        avg_exit_vel_dev FLOAT,
         barrel_rate FLOAT,
+        barrel_rate_dev FLOAT,
         zone_rate FLOAT,
+        zone_rate_dev FLOAT,
         chase_rate FLOAT,
+        chase_rate_dev FLOAT,
         whiff_rate FLOAT,
+        whiff_rate_dev FLOAT,
         fb_rate FLOAT,
+        fb_rate_dev FLOAT,
         fb_spin INTEGER,
+        fb_spin_dev FLOAT,
         brk_rate FLOAT,
+        brk_rate_dev FLOAT,
         brk_spin INTEGER,
+        brk_spin_dev FLOAT,
         os_rate FLOAT,
-        os_spin INTEGER
+        os_rate_dev FLOAT,
+        os_spin INTEGER,
+        os_spin_dev FLOAT
     );
 `
 

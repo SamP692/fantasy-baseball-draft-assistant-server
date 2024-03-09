@@ -11,13 +11,33 @@ import {
     type DbBatter
 } from ":types/batter.ts"
 
+/* Data Aggregations */
+import getDataAggregations from "./get-data-aggregations.ts"
+const battingAggregations = getDataAggregations("batting")
+
 /* Behaviors */
+/* -- Is Expected Free Agent */
+function isExpectedFreeAgent(minimumKeeperRound: number | string): 0 | 1 {
+    const booleanValue = minimumKeeperRound === "FA" ? 1 : 0
+
+    return booleanValue
+}
+
 /* -- Load Batter Seed Data */
 function loadBatterSeedData() {
     const batterJson = Deno.readTextFileSync(`${config.seedData}/batters.json`)
     const batterRecords = JSON.parse(batterJson)
 
     return batterRecords as { mergedRecords: RawBatter[], unmatchedRecords: RawBatterIncomplete[] }
+}
+
+/* -- Calculate Standard Deviations from the Mean */
+function calculateStandardDeviations(value: number, key: string) {
+    const { mean, stdDev } = battingAggregations[key]
+
+    const deviationsFromTheMean = (value - mean) / stdDev
+
+    return deviationsFromTheMean
 }
 
 /* -- Flatten Batter Records */
@@ -34,7 +54,7 @@ function flattenBatterRecord(batterRecord: RawBatter): DbBatter {
         current_fantasy_team: batterRecord.currentFantasyTeam,
         confirmed_keeper: 0,
         expected_keeper: 0,
-        expected_fa: 0,
+        expected_fa: isExpectedFreeAgent(batterRecord.minimumKeeperRound),
         keeper_round: batterRecord.minimumKeeperRound === "FA" ? null : batterRecord.minimumKeeperRound,
         pa: batterRecord.data.pa,
         xba: batterRecord.data.xba,
@@ -44,7 +64,15 @@ function flattenBatterRecord(batterRecord: RawBatter): DbBatter {
         barrel_rate: batterRecord.data.barrelRate,
         chase_rate: batterRecord.data.chaseRate,
         whiff_rate: batterRecord.data.whiffRate,
-        speed: batterRecord.data.speed
+        speed: batterRecord.data.speed,
+        xba_dev: calculateStandardDeviations(batterRecord.data.xba, "xba"),
+        xwoba_dev: calculateStandardDeviations(batterRecord.data.xwoba, "xwoba"),
+        xiso_dev: calculateStandardDeviations(batterRecord.data.xiso, "xiso"),
+        avg_exit_vel_dev: calculateStandardDeviations(batterRecord.data.avgExitVel, "avg_exit_vel"),
+        barrel_rate_dev: calculateStandardDeviations(batterRecord.data.barrelRate, "barrel_rate"),
+        chase_rate_dev: calculateStandardDeviations(batterRecord.data.chaseRate, "chase_rate"),
+        whiff_rate_dev: calculateStandardDeviations(batterRecord.data.whiffRate, "whiff_rate"),
+        speed_dev: calculateStandardDeviations(batterRecord.data.speed, "speed")
     }
 
     return flattenedRecord
@@ -74,7 +102,15 @@ function flattenIncompleteBatterRecord(batterRecord: RawBatterIncomplete): DbBat
         barrel_rate: batterRecord.data.barrelRate,
         chase_rate: batterRecord.data.chaseRate,
         whiff_rate: batterRecord.data.whiffRate,
-        speed: batterRecord.data.speed
+        speed: batterRecord.data.speed,
+        xba_dev: calculateStandardDeviations(batterRecord.data.xba, "xba"),
+        xwoba_dev: calculateStandardDeviations(batterRecord.data.xwoba, "xwoba"),
+        xiso_dev: calculateStandardDeviations(batterRecord.data.xiso, "xiso"),
+        avg_exit_vel_dev: calculateStandardDeviations(batterRecord.data.avgExitVel, "avg_exit_vel"),
+        barrel_rate_dev: calculateStandardDeviations(batterRecord.data.barrelRate, "barrel_rate"),
+        chase_rate_dev: calculateStandardDeviations(batterRecord.data.chaseRate, "chase_rate"),
+        whiff_rate_dev: calculateStandardDeviations(batterRecord.data.whiffRate, "whiff_rate"),
+        speed_dev: calculateStandardDeviations(batterRecord.data.speed, "speed")
     }
 
     return flattenedRecord
@@ -107,7 +143,15 @@ function seedDatabase() {
             barrel_rate,
             chase_rate,
             whiff_rate,
-            speed
+            speed,
+            xba_dev,
+            xwoba_dev,
+            xiso_dev,
+            avg_exit_vel_dev,
+            barrel_rate_dev,
+            chase_rate_dev,
+            whiff_rate_dev,
+            speed_dev
         ) VALUES (
             :id,
             :name,
@@ -130,7 +174,15 @@ function seedDatabase() {
             :barrel_rate,
             :chase_rate,
             :whiff_rate,
-            :speed
+            :speed,
+            :xba_dev,
+            :xwoba_dev,
+            :xiso_dev,
+            :avg_exit_vel_dev,
+            :barrel_rate_dev,
+            :chase_rate_dev,
+            :whiff_rate_dev,
+            :speed_dev
         )
     `)
 
