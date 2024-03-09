@@ -34,7 +34,15 @@ function transformFromDb(databaseRecord: DbBatter): Batter {
         barrelRate: databaseRecord.barrel_rate,
         chaseRate: databaseRecord.chase_rate,
         whiffRate: databaseRecord.whiff_rate,
-        speed: databaseRecord.speed
+        speed: databaseRecord.speed,
+        xbaDev: databaseRecord.xba_dev,
+        xwobaDev: databaseRecord.xwoba_dev,
+        xisoDev: databaseRecord.xiso_dev,
+        avgExitVelDev: databaseRecord.avg_exit_vel_dev,
+        barrelRateDev: databaseRecord.barrel_rate_dev,
+        chaseRateDev: databaseRecord.chase_rate_dev,
+        whiffRateDev: databaseRecord.whiff_rate_dev,
+        speedDev: databaseRecord.speed_dev
     }
 
     return batter
