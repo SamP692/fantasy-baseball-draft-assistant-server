@@ -16,13 +16,6 @@ import getDataAggregations from "./get-data-aggregations.ts"
 const battingAggregations = getDataAggregations("batting")
 
 /* Behaviors */
-/* -- Is Expected Free Agent */
-function isExpectedFreeAgent(minimumKeeperRound: number | string): 0 | 1 {
-    const booleanValue = minimumKeeperRound === "FA" ? 1 : 0
-
-    return booleanValue
-}
-
 /* -- Load Batter Seed Data */
 function loadBatterSeedData() {
     const batterJson = Deno.readTextFileSync(`${config.seedData}/batters.json`)
@@ -54,7 +47,7 @@ function flattenBatterRecord(batterRecord: RawBatter): DbBatter {
         current_fantasy_team: batterRecord.currentFantasyTeam,
         confirmed_keeper: 0,
         expected_keeper: 0,
-        expected_fa: isExpectedFreeAgent(batterRecord.minimumKeeperRound),
+        expected_fa: 1,
         keeper_round: batterRecord.minimumKeeperRound === "FA" ? null : batterRecord.minimumKeeperRound,
         pa: batterRecord.data.pa,
         xba: batterRecord.data.xba,
@@ -92,7 +85,7 @@ function flattenIncompleteBatterRecord(batterRecord: RawBatterIncomplete): DbBat
         current_fantasy_team: null,
         confirmed_keeper: 0,
         expected_keeper: 0,
-        expected_fa: 0,
+        expected_fa: 1,
         keeper_round: null,
         pa: batterRecord.data.pa,
         xba: batterRecord.data.xba,
