@@ -7,6 +7,8 @@ import cors from "./server/middleware/cors.ts"
 
 /* Controllers */
 import getBattersController from "./server/controllers/batters/get.ts"
+import getPitchersController from "./server/controllers/pitchers/get.ts"
+
 import getSampleBatterController from "./server/controllers/batter/sample.ts"
 
 /* Web Server */
@@ -16,6 +18,7 @@ const router = new Router()
 
 router
     .get("/batters", getBattersController)
+    .get("/pitchers", getPitchersController)
     .get("/batters/sample", getSampleBatterController)
 
 webServer.use(cors)
