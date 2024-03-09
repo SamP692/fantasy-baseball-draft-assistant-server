@@ -5,40 +5,32 @@ import db from ":db"
 import transformFromDb from ":domain/batter/transform-from-db.ts"
 
 /* Types */
-import { type DbBatter, type Batter } from ":types/batter.ts"
+import { type DbBatter } from ":types/batter.ts"
 
-/**
- * Supported Filters
- *  - Position
- *  - Known Free Agents
- *  - Expected Free Agents (which includes known free agents)
- */
 /* Local Type Definitions */
-interface Filter {
+interface Filters {
     position?: string
     knownFreeAgents?: boolean
     expectedFreeAgents?: boolean
 }
 
 /* Behaviors */
-function buildFilterQueryString(filters?: Filter[]): string | null {
+function buildFilterQueryString(filters?: Filters): string | null {
     if (!filters) return null
 
     const filterStrings: string[] = []
 
-    filters.forEach((filter) => {
-        if (filter.position) {
-            filterStrings.push(`position = '${filter.position}'`)
-        }
+    if (filters.position) {
+        filterStrings.push(`yahoo_positions LIKE '%${filters.position}%'`)
+    }
 
-        if (filter.knownFreeAgents) {
-            filterStrings.push(`yahoo_id IS NOT NULL AND curent_fantasy_team LIKE %FA%`)
-        }
+    if (filters.knownFreeAgents) {
+        filterStrings.push(`yahoo_id IS NOT NULL AND current_fantasy_team LIKE '%FA%'`)
+    }
 
-        if (filter.expectedFreeAgents) {
-            filterStrings.push(`expected_free_agent = 1`)
-        }
-    })
+    if (filters.expectedFreeAgents) {
+        filterStrings.push(`(expected_fa = 1)`)
+    }
 
     const filterQueryString = filterStrings.join(" AND ")
 
@@ -46,7 +38,7 @@ function buildFilterQueryString(filters?: Filter[]): string | null {
 }
 
 /* Get All Batters */
-function get(filters?: Filter[]) {
+function get(filters?: Filters) {
     const filtersQueryString = buildFilterQueryString(filters)
 
     const query = filtersQueryString ?
