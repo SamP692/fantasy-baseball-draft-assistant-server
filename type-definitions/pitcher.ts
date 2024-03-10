@@ -135,9 +135,9 @@ export interface Pitcher {
     pa: number
     gs: number
     xba: number
-    xba_dev: number
+    xbaDev: number
     xwoba: number
-    xwoba_dev: number
+    xwobaDev: number
     xiso: number
     xisoDev: number
     avgExitVel: number
