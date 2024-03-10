@@ -51,9 +51,10 @@ function get(filters?: Filters) {
         throw new Error("No pitchers were found")
     }
 
-    const batters = result.map(transformFromDb)
+    const pitchers = result.map(transformFromDb)
+    const sortedPitchers = pitchers.sort((a, b) => a.xwobaDev - b.xwobaDev)
 
-    return batters
+    return sortedPitchers
 }
 
 export default get

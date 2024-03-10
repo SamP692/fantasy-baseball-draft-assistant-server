@@ -52,8 +52,9 @@ function get(filters?: Filters) {
     }
 
     const batters = result.map(transformFromDb)
+    const sortedBatters = batters.sort((a, b) => b.xwobaDev - a.xwobaDev)
 
-    return batters
+    return sortedBatters
 }
 
 export default get
